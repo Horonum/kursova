@@ -44,8 +44,6 @@ public class OperatingInTaxController implements Initializable {
         this.x2 = x2;
     }
 
-    private ArrayList<Tax> taxArrayList = new ArrayList<>();
-
     @FXML
     private ResourceBundle resources;
 

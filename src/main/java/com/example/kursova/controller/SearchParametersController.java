@@ -36,6 +36,9 @@ public class SearchParametersController {
 
     @FXML
     void initialize() {
+        tfX1.setStyle("-fx-background-color: white;");
+        tfX2.setStyle("-fx-background-color: white;");
+
             butCancelParameters.setOnAction(Event -> {
                 OperatingInTaxController controller = new OperatingInTaxController();
                 butCancelParameters.getScene().getWindow().hide();
@@ -58,8 +61,29 @@ public class SearchParametersController {
             });
 
             butAceptParameters.setOnAction(Event -> {
+                int x1, x2;
 
-                OperatingInTaxController controller = new OperatingInTaxController(Integer.valueOf(tfX1.getText()), Integer.valueOf(tfX2.getText()));
+                if(!isNumber(tfX1.getText())){
+                    tfX1.setStyle("-fx-background-color: #EBC7D4;");
+                    return;
+                }
+                tfX1.setStyle("-fx-background-color: white;");
+
+                if (!isNumber(tfX2.getText())){
+                    tfX2.setStyle("-fx-background-color: #EBC7D4;");
+                    return;
+                }
+                tfX2.setStyle("-fx-background-color: white;");
+
+                if(Integer.parseInt(tfX2.getText()) < Integer.parseInt(tfX1.getText())){
+                    x1 = Integer.parseInt(tfX2.getText());
+                    x2 = Integer.parseInt(tfX1.getText());
+                }
+                else {
+                    x2 = Integer.parseInt(tfX2.getText());
+                    x1 = Integer.parseInt(tfX1.getText());
+                }
+                OperatingInTaxController controller = new OperatingInTaxController(x1, x2);
                 butAceptParameters.getScene().getWindow().hide();
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("OperationInTaxsScene.fxml"));
                 fxmlLoader.setController(controller);
@@ -78,6 +102,17 @@ public class SearchParametersController {
                 stage.setResizable(false);
                 stage.show();
             });
+
+
+    }
+
+    private static boolean isNumber(String s) throws NumberFormatException {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

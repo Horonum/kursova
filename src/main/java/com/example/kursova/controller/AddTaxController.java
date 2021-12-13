@@ -17,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class AddTaxController {
@@ -41,6 +43,8 @@ public class AddTaxController {
 
     @FXML
     void initialize() {
+        tfBalance.setStyle("-fx-background-color: white;");
+
         cbTypeTax.getItems().addAll("Податок з основного або додаткового місця роботи",
         "Податок з авторських винагород",
         "Податок з продажу майна",
@@ -71,6 +75,13 @@ public class AddTaxController {
         });
 
         butAceptAddTax.setOnAction(Event -> {
+
+            if(!isNumber(tfBalance.getText())){
+                tfBalance.setStyle("-fx-background-color: #EBC7D4;");
+                return;
+            }
+
+            tfBalance.setStyle("-fx-background-color: whyte;");
 
             Integer balance = Integer.valueOf(tfBalance.getText());
 
@@ -157,5 +168,14 @@ public class AddTaxController {
             // Error
         }
         return "";
+    }
+
+    private static boolean isNumber(String s) throws NumberFormatException {
+        try {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
